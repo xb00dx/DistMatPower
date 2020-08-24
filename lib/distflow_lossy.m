@@ -62,6 +62,9 @@ not_substation = setdiff(1:nb, substation);
 if mpc.bus(substation,BUS_TYPE) ~= REF
     error('the largest bus number is for substation (REF).');
 end
+if size(mpc.gen,1) ~= 1
+    error('only one generator (substation) is allowed for now.')
+end
 
 %% options structure
 if nargin < 2
@@ -176,6 +179,8 @@ result.branch(:,PF) = Pf;
 result.branch(:,QF) = Qf;
 result.branch(:,PT) = -Pf;
 result.branch(:,QT) = -Qf;
+result.gen(:,PG) = sum(result.bus(:,PD));
+result.gen(:,QG) = sum(result.bus(:,QD));
 result.success = 1;
 % missing PG, QG of generators 
 %         PT, QT of lines 
