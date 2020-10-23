@@ -1,4 +1,4 @@
-function result = distflow_lossy(mpc, opt)
+function [result, Rmat, Xmat] = distflow_lossy(mpc, opt)
 %%% single phase DistFlow solution
 %%%  [v, Pf, Qf] = distflow_lossy(mpc)
 %%%  [v, Pf, QF] = distflow_lossy(mpc, opt)
@@ -185,6 +185,14 @@ result.success = 1;
 % missing PG, QG of generators 
 %         PT, QT of lines 
 %         VA of buses (to recover voltage angles)
+
+if nargout > 1
+    % WARNING: only tested correctness for lossless case
+    Rmat = -Rlossy; 
+    Xmat = -Xlossy;
+end
+
+
 
 function opt = optdefaults(opt)
 optd = struct('alpha', 0.5, 'alpha_method', 1);
