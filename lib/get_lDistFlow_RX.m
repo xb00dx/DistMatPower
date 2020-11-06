@@ -1,4 +1,4 @@
-function [R,X] = get_lDistFlow_RX(mpc)
+function [R,X,Z] = get_lDistFlow_RX(mpc)
 define_constants;
 NONREF_BUS = mpc.bus(:,BUS_TYPE) ~= REF;
 
@@ -28,5 +28,7 @@ B = sparse(inv(A)); % very inefficient, and possiblely inaccurate for large A
 
 R = 2*B'*sparse(1:nbranch_on,1:nbranch_on,mpc.branch(:,BR_R))*B;
 X = 2*B'*sparse(1:nbranch_on,1:nbranch_on,mpc.branch(:,BR_X))*B;
+
+Z = (0.5*R).*2 + (0.5*X).*2;
 
 end
