@@ -1,4 +1,4 @@
-function [R,X,Z] = get_lDistFlow_RX(mpc)
+function [R,X,Z,B] = get_lDistFlow_RX(mpc)
 define_constants;
 NONREF_BUS = mpc.bus(:,BUS_TYPE) ~= REF;
 
